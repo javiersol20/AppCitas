@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">MyDoctor</string>
+
+    <string name="label_login">Inicio de sesion</string>
+    <string name="label_register">Registro de usuarios</string>
+
+
+    <string name="btn_login">Acceder</string>
+    <string name="btn_register">REGISTRAR</string>
+
+
+    <string name="label_name_lastname">Nombre y apellido</string>
+    <string name="label_dni">Dni</string>
+    <string name="label_confirm_password">Confirmar password</string>
+    <string name="label_email">Correo</string>
+    <string name="label_password">password</string>
+
+    <string name="label_to_go_login">Login</string>
+    <string name="label_go_to_register">Aun no tienes una cuenta?</string>
+
+    <string name="please_fill_your_register">Por favor completa tus datos</string>
+    <string name="btn_create_appointment">Reservar cita</string>
+    <string name="btn_my_appointments">Mis citas</string>
+    <string name="btn_logout">Cerrar sesion</string>
+    <string name="label_welcome">Bienvenido</string>
+
+</resources>
