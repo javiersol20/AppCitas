@@ -5,10 +5,12 @@
       <map>
         <entry key="app/src/main/res/drawable/calendar.xml" value="0.2921875" />
         <entry key="app/src/main/res/drawable/custom_button.xml" value="0.2921875" />
+        <entry key="app/src/main/res/drawable/ic_next.xml" value="0.2921875" />
         <entry key="app/src/main/res/drawable/ic_power_off.xml" value="0.2921875" />
         <entry key="app/src/main/res/drawable/info.xml" value="0.2921875" />
         <entry key="app/src/main/res/drawable/language.xml" value="0.2921875" />
         <entry key="app/src/main/res/layout-v21/activity_menu.xml" value="0.2760416666666667" />
+        <entry key="app/src/main/res/layout/activity_create_appointment.xml" value="0.2760416666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_menu.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.33" />

@@ -31,6 +31,7 @@
         android:layout_height="wrap_content" >
 
         <Button
+            android:id="@+id/btnCreateAppointment"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
@@ -48,6 +49,7 @@
             tools:ignore="RtlSymmetry" />
 
         <Button
+            android:id="@+id/btnMyAppointments"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
@@ -64,6 +66,7 @@
             android:paddingStart="10dp"
             tools:ignore="RtlSymmetry" />
         <Button
+            android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
