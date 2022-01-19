@@ -33,5 +33,6 @@
     <string name="btn_next">Siguiente</string>
     <string name="label_doctor">Medico</string>
     <string name="label_scheduled_date">Fecha para la cita</string>
+    <string name="btn_confirm">Confirmar cita</string>
 
 </resources>
