@@ -1,5 +1,6 @@
 package com.jssdeveloper.mydoctor
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,9 +14,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
+
+        val preferences = getSharedPreferences("general", Context.MODE_PRIVATE);
+        val session = preferences.getBoolean("session", false);
+
+        if(session)
+        {
+            goToMenuActivity();
+        }
+
         btn_login.setOnClickListener{
-            val intent = Intent(this, MenuActivity::class.java);
-            startActivity(intent);
+
+
+            createSessionPreference();
+            goToMenuActivity();
         };
 
         tvGoToRegister.setOnClickListener {
@@ -25,6 +39,21 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java);
             startActivity(intent);
         }
+    }
+
+    private fun createSessionPreference()
+    {
+        val preferences = getSharedPreferences("general", Context.MODE_PRIVATE);
+        val editor = preferences.edit();
+        editor.putBoolean("session", true);
+        editor.apply();
+
+    }
+    private fun goToMenuActivity()
+    {
+        val intent = Intent(this, MenuActivity::class.java);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -11,9 +11,6 @@ import kotlinx.android.synthetic.main.item_appointment.view.*
 class AppointmentAdapter(private val appointments: ArrayList<Appointment>) : RecyclerView.Adapter<AppointmentAdapter.ViewHolder>() {
 
 
-    // esta clase representa la visa y nos permite tener una referencia de cada elemento que conforma nuestra vista
-    // aqui identificamos que componentes estan dentro de nuestra vista
-    // data set es el conjunto de datos
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(appointment: Appointment)
