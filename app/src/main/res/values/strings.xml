@@ -41,5 +41,18 @@
     <string name="item_appointment_date">Atencion el dia %1$s</string>
     <string name="item_appointment_time">A las %1$s</string>
     <string name="label_my_appointments">Mis citas medicas</string>
+    <string name="press_back_again">Presione una vez mas para salir</string>
+    <string name="dialog_create_appointment_exit_tile">Estas seguro que deseas salir?</string>
+    <string name="dialog_create_appointment_exit_message">Si abandonas el registro, los datos que habias ingresado se perderan.</string>
+    <string name="dialog_create_appointment_positive_button">Si, salir</string>
+    <string name="dialog_create_appointment_exit_canceled">Continuar registro</string>
+    <string name="validate_appointment_description">La descripcion es demasiado corta</string>
+    <string name="label_confirm_appointment_data">RESUMEN DE CITA</string>
+        <string name="label_description_appointments">Descripcion</string>
+    <string name="label_type_consult">TIpo consulta</string>
+    <string name="label_scheduled_date_appointments">Fecha para la cita</string>
+    <string name="label_scheduled_date_appointment">Hora de cita</string>
+    <string name="validate_appointment_date">Es necesario seleccionar una fecha</string>
+    <string name="validate_appointment_time">Seleccione una hora de atencion</string>
 
 </resources>

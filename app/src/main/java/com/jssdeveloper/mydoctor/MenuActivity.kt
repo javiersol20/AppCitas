@@ -5,7 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_menu.*
-
+import com.jssdeveloper.mydoctor.PreferenceHelper.set
 class MenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +31,10 @@ class MenuActivity : AppCompatActivity() {
 
     private fun clearSessionPerference()
     {
-        val preferences = getSharedPreferences("general", Context.MODE_PRIVATE);
-        val editor = preferences.edit();
-        editor.putBoolean("session", false);
-        editor.apply();
+
+
+        val preferences = PreferenceHelper.defaultPrefs(this);
+        preferences["session"] = false;
+
     }
 }
