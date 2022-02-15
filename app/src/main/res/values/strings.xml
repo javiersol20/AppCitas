@@ -54,5 +54,7 @@
     <string name="label_scheduled_date_appointment">Hora de cita</string>
     <string name="validate_appointment_date">Es necesario seleccionar una fecha</string>
     <string name="validate_appointment_time">Seleccione una hora de atencion</string>
+    <string name="error_loading_especialty">Ocurrio un problema de red</string>
+    <string name="error_loading_doctors">Ocurrio un problema al cargar los medicos</string>
 
 </resources>

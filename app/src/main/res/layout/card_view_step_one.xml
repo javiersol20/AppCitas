@@ -9,7 +9,7 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     app:contentPadding="12dp"
-    tools:context=".CreateAppointmentActivity">
+    tools:context=".ui.CreateAppointmentActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.jssdeveloper.mydoctor.PreferenceHelper.get
 import com.jssdeveloper.mydoctor.PreferenceHelper.set
 import com.jssdeveloper.mydoctor.R
-import com.jssdeveloper.mydoctor.RegisterActivity
 
 class MainActivity : AppCompatActivity() {
 

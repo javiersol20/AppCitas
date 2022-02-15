@@ -6,17 +6,29 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
 import com.jssdeveloper.mydoctor.R
+import com.jssdeveloper.mydoctor.io.ApiService
+import com.jssdeveloper.mydoctor.model.Doctor
+import com.jssdeveloper.mydoctor.model.Specialty
 import kotlinx.android.synthetic.main.activity_create_appointment.*
 import kotlinx.android.synthetic.main.card_view_step_one.*
 import kotlinx.android.synthetic.main.card_view_step_three.*
 import kotlinx.android.synthetic.main.card_view_step_two.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList;
 
 class CreateAppointmentActivity : AppCompatActivity() {
+
+    private val apiService: ApiService by lazy {
+        ApiService.create()
+    }
 
     private val selectedCalendar = Calendar.getInstance();
     private var selectedTimeRadioBtn: RadioButton? = null;
@@ -65,14 +77,98 @@ class CreateAppointmentActivity : AppCompatActivity() {
         }
 
 
-        val options = arrayOf("Specialidad A", "Specialidad B", "Specialidad C");
-        spinnerSpecialties.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options);
 
-        val doctors = arrayOf("Medico A", "Medico B", "Medico C");
-        spinnerDoctors.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, doctors)
+        loadSpecialties()
+        listenSpecialtyChanges()
 
     }
 
+    private fun loadSpecialties()
+    {
+        val call = apiService.getSpecialties();
+        call.enqueue(object: Callback<ArrayList<Specialty>> {
+
+            override fun onFailure(call: Call<ArrayList<Specialty>>, t: Throwable) {
+                Toast.makeText(this@CreateAppointmentActivity, getString(R.string.error_loading_especialty), Toast.LENGTH_SHORT).show()
+                finish()
+            }
+
+            override fun onResponse(call: Call<ArrayList<Specialty>>, response: Response<ArrayList<Specialty>>) {
+                if(response.isSuccessful)
+                {
+                    val specialties = response.body()
+
+                    spinnerSpecialties.adapter = specialties?.let {
+                        ArrayAdapter<Specialty>(this@CreateAppointmentActivity, android.R.layout.simple_list_item_1, it)
+                    }
+
+                }
+            }
+
+
+
+
+
+        })
+
+
+    }
+
+    private fun listenSpecialtyChanges()
+    {
+        spinnerSpecialties.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val specialty = adapter?.getItemAtPosition(position) as Specialty;
+
+                /*
+                    HASTA AQUI SI FUNCIONA ;)
+                 */
+                //Toast.makeText(this@CreateAppointmentActivity, "id: ${specialty.id}", Toast.LENGTH_SHORT).show();
+
+                loadDoctors(specialty.id);
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+        }
+    }
+
+    private fun loadDoctors(specialtyId: Int)
+    {
+        /*
+        hasta aqui tambien funciona! Si recibe el parametro
+         */
+       // Toast.makeText(this@CreateAppointmentActivity, "id DE: ${specialtyId}", Toast.LENGTH_SHORT).show();
+
+
+        val call = apiService.getDoctors(specialtyId);
+        call.enqueue(object : Callback<ArrayList<Doctor>>{
+            override fun onResponse(
+                call: Call<ArrayList<Doctor>>,
+                response: Response<ArrayList<Doctor>>
+            ) {
+
+                if(response.isSuccessful)
+                {
+                    response.body()?.let {
+                        val doctors = it.toMutableList()
+                        spinnerDoctors.adapter = ArrayAdapter<Doctor>(this@CreateAppointmentActivity, android.R.layout.simple_list_item_1, doctors)
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<Doctor>>, t: Throwable) {
+                Toast.makeText(this@CreateAppointmentActivity, "Algo ha salido mal al cargar medicos.", Toast.LENGTH_LONG).show();
+
+            }
+
+        })
+
+
+    }
     private fun showAppointmentDataToConfirm()
     {
         tvConfirmDescription.text = etDescription.text.toString();
