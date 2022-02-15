@@ -1,14 +1,17 @@
-package com.jssdeveloper.mydoctor
+package com.jssdeveloper.mydoctor.ui
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.widget.Toast
+import com.jssdeveloper.mydoctor.PreferenceHelper
 
 import kotlinx.android.synthetic.main.activity_main.*
 import com.jssdeveloper.mydoctor.PreferenceHelper.get
 import com.jssdeveloper.mydoctor.PreferenceHelper.set
+import com.jssdeveloper.mydoctor.R
+import com.jssdeveloper.mydoctor.RegisterActivity
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.jssdeveloper.mydoctor
+package com.jssdeveloper.mydoctor.ui
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
+import com.jssdeveloper.mydoctor.R
 import kotlinx.android.synthetic.main.activity_create_appointment.*
 import kotlinx.android.synthetic.main.card_view_step_one.*
 import kotlinx.android.synthetic.main.card_view_step_three.*
@@ -45,7 +46,8 @@ class CreateAppointmentActivity : AppCompatActivity() {
                 }
                 selectedTimeRadioBtn == null -> {
 
-                    Snackbar.make( createAppointmentLinearLayout , R.string.validate_appointment_time, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make( createAppointmentLinearLayout ,
+                        R.string.validate_appointment_time, Snackbar.LENGTH_SHORT).show();
                 }
                 else -> {
 

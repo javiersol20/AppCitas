@@ -1,9 +1,10 @@
-package com.jssdeveloper.mydoctor
+package com.jssdeveloper.mydoctor.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Adapter
+import com.jssdeveloper.mydoctor.R
 import com.jssdeveloper.mydoctor.model.Appointment
 import kotlinx.android.synthetic.main.activity_appointments.*
 import java.util.ArrayList

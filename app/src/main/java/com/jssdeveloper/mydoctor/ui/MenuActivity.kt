@@ -1,11 +1,14 @@
-package com.jssdeveloper.mydoctor
+package com.jssdeveloper.mydoctor.ui
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.jssdeveloper.mydoctor.PreferenceHelper
 import kotlinx.android.synthetic.main.activity_menu.*
 import com.jssdeveloper.mydoctor.PreferenceHelper.set
+import com.jssdeveloper.mydoctor.R
+
 class MenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

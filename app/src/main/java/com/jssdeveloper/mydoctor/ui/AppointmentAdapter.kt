@@ -1,9 +1,10 @@
-package com.jssdeveloper.mydoctor
+package com.jssdeveloper.mydoctor.ui
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jssdeveloper.mydoctor.R
 import com.jssdeveloper.mydoctor.model.Appointment
 import kotlinx.android.synthetic.main.item_appointment.view.*
 
