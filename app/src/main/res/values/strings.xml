@@ -56,5 +56,10 @@
     <string name="validate_appointment_time">Seleccione una hora de atencion</string>
     <string name="error_loading_especialty">Ocurrio un problema de red</string>
     <string name="error_loading_doctors">Ocurrio un problema al cargar los medicos</string>
+    <string name="label_select_doctor_and_date">Seleccione un medico y una fecha para ver sus horas disponibles</string>
+    <string name="label_not_available_date">No hay horas disponibles, pruebe seleccionando otro dia.</string>
+    <string name="error_login_response">Se obtuvo una respuesta inesperada del servidor</string>
+    <string name="error_invalid_credentials">Las credenciales son invalidas</string>
+    <string name="error_entry_credentials">Por favor ingrese un correo y password</string>
 
 </resources>

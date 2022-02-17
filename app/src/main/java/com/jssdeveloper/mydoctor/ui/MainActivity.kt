@@ -5,15 +5,24 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.widget.Toast
-import com.jssdeveloper.mydoctor.PreferenceHelper
+import com.jssdeveloper.mydoctor.util.PreferenceHelper
 
 import kotlinx.android.synthetic.main.activity_main.*
-import com.jssdeveloper.mydoctor.PreferenceHelper.get
-import com.jssdeveloper.mydoctor.PreferenceHelper.set
+import com.jssdeveloper.mydoctor.util.PreferenceHelper.get
+import com.jssdeveloper.mydoctor.util.PreferenceHelper.set
 import com.jssdeveloper.mydoctor.R
+import com.jssdeveloper.mydoctor.io.ApiService
+import com.jssdeveloper.mydoctor.io.response.LoginResponse
+import com.jssdeveloper.mydoctor.util.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    private val apiService: ApiService by lazy{
+        ApiService.create()
+    }
     private val snackBar by lazy { Snackbar.make(mainLayout, R.string.press_back_again, Snackbar.LENGTH_SHORT) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,21 +30,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
-
-
         val preferences = PreferenceHelper.defaultPrefs(this);
 
-        if(preferences["session", false])
+        if(preferences["jwt", ""].contains("."))
         {
             goToMenuActivity();
         }
 
         btn_login.setOnClickListener{
 
+            performLogin()
 
-            createSessionPreference();
-            goToMenuActivity();
+           // createSessionPreference();
+            //goToMenuActivity();
         };
 
         tvGoToRegister.setOnClickListener {
@@ -47,11 +54,55 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun createSessionPreference()
+    private fun performLogin()
+    {
+        val email = etEmail.text.toString();
+        val password = etPassword.text.toString();
+
+        if(email.trim().isEmpty() || password.trim().isEmpty() )
+        {
+            toast(getString(R.string.error_entry_credentials))
+            return
+        }
+
+       val call = apiService.postLogin(email, password)
+        call.enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if(response.isSuccessful)
+                {
+                    val loginResponse = response.body()
+                    if(loginResponse == null)
+                    {
+                        toast(getString(R.string.error_login_response))
+
+                        return
+                    }
+                    if(loginResponse.success)
+                    {
+                        createSessionPreference(loginResponse.jwt)
+                        toast("Bienvenido ${loginResponse.user.name}")
+                        goToMenuActivity()
+                    }else{
+                        toast(getString(R.string.error_invalid_credentials))
+                    }
+                }else{
+
+                    toast(getString(R.string.error_login_response))
+
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                toast(t.localizedMessage)
+            }
+
+        })
+    }
+    private fun createSessionPreference(jwt: String)
     {
 
         val preferences = PreferenceHelper.defaultPrefs(this);
-        preferences["session"] = true;
+        preferences["jwt"] = jwt;
     }
     private fun goToMenuActivity()
     {

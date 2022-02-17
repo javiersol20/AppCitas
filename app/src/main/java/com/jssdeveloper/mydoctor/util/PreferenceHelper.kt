@@ -1,4 +1,4 @@
-package com.jssdeveloper.mydoctor
+package com.jssdeveloper.mydoctor.util
 
 
 import android.content.Context
