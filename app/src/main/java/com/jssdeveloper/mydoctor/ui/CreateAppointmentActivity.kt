@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -13,6 +16,7 @@ import android.widget.Toast
 import com.jssdeveloper.mydoctor.R
 import com.jssdeveloper.mydoctor.io.ApiService
 import com.jssdeveloper.mydoctor.model.Doctor
+import com.jssdeveloper.mydoctor.model.Schedule
 import com.jssdeveloper.mydoctor.model.Specialty
 import kotlinx.android.synthetic.main.activity_create_appointment.*
 import kotlinx.android.synthetic.main.card_view_step_one.*
@@ -81,8 +85,63 @@ class CreateAppointmentActivity : AppCompatActivity() {
         loadSpecialties()
         listenSpecialtyChanges()
 
+        listenDoctorAndDateChange()
+
     }
 
+    private fun listenDoctorAndDateChange()
+    {
+        spinnerDoctors.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                Log.d("error", "aqui hay error xd3")
+            }
+
+            override fun onItemSelected(adapter: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val doctor = adapter?.getItemAtPosition(position) as Doctor
+                loadHours(doctor.id, etScheduleDate.text.toString())
+            }
+
+
+        }
+
+        etScheduleDate.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                Log.d("error", "aqui hay error xd2")
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val doctor = spinnerDoctors.selectedItem as Doctor;
+
+                loadHours(doctor.id ,etScheduleDate.text.toString())
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                Log.d("error", "aqui hay error xd")
+            }
+
+        })
+    }
+
+    private fun loadHours(doctorId: Int, date: String)
+    {
+        val call = apiService.getHours(doctorId, date)
+        call.enqueue(object : Callback<Schedule>{
+            override fun onResponse(call: Call<Schedule>, response: Response<Schedule>) {
+                if(response.isSuccessful)
+                {
+                    val schedule = response.body();
+                    Toast.makeText(this@CreateAppointmentActivity, "morning: ${schedule?.morning?.size}, afternoon: ${schedule?.afternoon?.size}", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            override fun onFailure(call: Call<Schedule>, t: Throwable) {
+                Toast.makeText(this@CreateAppointmentActivity, "No se han podido cargar las horas", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+    }
     private fun loadSpecialties()
     {
         val call = apiService.getSpecialties();
@@ -169,6 +228,7 @@ class CreateAppointmentActivity : AppCompatActivity() {
 
 
     }
+
     private fun showAppointmentDataToConfirm()
     {
         tvConfirmDescription.text = etDescription.text.toString();
@@ -193,10 +253,11 @@ class CreateAppointmentActivity : AppCompatActivity() {
         val listener = DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
 
             selectedCalendar.set(y, m, d)
+
             etScheduleDate.setText(resources.getString(
                 R.string.date_format,
                 y,
-                m.twoDigits(),
+                (m + 1).twoDigits(),
                 d.twoDigits()
                 )
             );
@@ -206,6 +267,7 @@ class CreateAppointmentActivity : AppCompatActivity() {
 
 
         val datePickerDialog = DatePickerDialog(this, listener, year, month, dayOfMonth);
+
         val datePicker = datePickerDialog.datePicker;
 
         val calendar = Calendar.getInstance();
