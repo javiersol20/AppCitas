@@ -9,8 +9,9 @@ import com.jssdeveloper.mydoctor.model.Appointment
 import kotlinx.android.synthetic.main.item_appointment.view.*
 
 
-class AppointmentAdapter(private val appointments: ArrayList<Appointment>) : RecyclerView.Adapter<AppointmentAdapter.ViewHolder>() {
+class AppointmentAdapter : RecyclerView.Adapter<AppointmentAdapter.ViewHolder>() {
 
+    public var appointments = ArrayList<Appointment>()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -19,9 +20,26 @@ class AppointmentAdapter(private val appointments: ArrayList<Appointment>) : Rec
             with(itemView)
             {
                 tvAppointmentId.text = context.getString(R.string.item_appointment_id, appointment.id);
-                tvDoctorName.text = appointment.doctorName;
+                tvDoctorName.text = appointment.doctor.name;
                 tvScheduleDate.text = context.getString(R.string.item_appointment_date, appointment.scheduledDate);
                 tvScheduleTime.text = context.getString(R.string.item_appointment_time, appointment.scheduledTime);
+
+                tvSpecialty.text = appointment.specialty.name;
+                tvDescription.text = appointment.description
+                tvStatus.text = appointment.status;
+                tvTYpe.text = appointment.type;
+                tvCreatedAt.text = context.getString(R.string.label_created_at, appointment.createdAt)
+
+                ibExpand.setOnClickListener{
+                    if(linearLayoutDetails.visibility == View.VISIBLE)
+                    {
+                        linearLayoutDetails.visibility = View.GONE
+                        ibExpand.setImageResource(R.drawable.ic_expand_more)
+                    }else{
+                        linearLayoutDetails.visibility = View.VISIBLE
+                        ibExpand.setImageResource(R.drawable.ic_expand_less)
+                    }
+                }
             }
         }
     }

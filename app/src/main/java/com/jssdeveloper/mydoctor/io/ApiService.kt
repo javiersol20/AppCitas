@@ -1,6 +1,7 @@
 package com.jssdeveloper.mydoctor.io
 
 import com.jssdeveloper.mydoctor.io.response.LoginResponse
+import com.jssdeveloper.mydoctor.model.Appointment
 import com.jssdeveloper.mydoctor.model.Doctor
 import com.jssdeveloper.mydoctor.model.Schedule
 import com.jssdeveloper.mydoctor.model.Specialty
@@ -27,6 +28,9 @@ interface ApiService {
 
     @POST("logout")
     fun postLogout(@Header("Authorization") authHeader: String): Call<Void>
+
+    @GET("appointments")
+    fun getAppointments(@Header("Authorization") authHeader: String): Call<ArrayList<Appointment>>
 
     companion object Factory{
         private const val BASE_URL = "http://128.199.8.30/api/"

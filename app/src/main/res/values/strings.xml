@@ -62,4 +62,6 @@
     <string name="error_invalid_credentials">Las credenciales son invalidas</string>
     <string name="error_entry_credentials">Por favor ingrese un correo y password</string>
 
+    <string name="label_created_at">Esta cita se genero el dia %1$s con la siguiente descripcion: </string>
+
 </resources>

@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="6dp"
+        android:padding="8dp"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -47,6 +47,109 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             tools:text="A las 3:00 PM"/>
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="Reserva"/>
+
+            <ImageButton
+                android:id="@+id/ibExpand"
+                android:src="@drawable/ic_expand_more"
+                tools:src="@drawable/ic_expand_less"
+                android:layout_width="wrap_content"
+                android:background="@color/white"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content"
+
+                />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutDetails"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSpecialty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="Oftalmologia"/>
+
+
+
+
+
+            <TextView
+                android:id="@+id/tvTYpe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="Consulta"/>
+
+            <TextView
+                android:id="@+id/tvCreatedAt"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="Esta cita se genero el dia 2022-12-05 con la siguiente descripcion: "/>
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="Tengo dolor de cabeza"/>
+        </LinearLayout>
+
+<!--
+
+        <TextView
+            android:id="@+id/tvSpecialty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            tools:text="Oftalmologia"/>
+
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            tools:text="HOla mundo"/>
+
+
+        <TextView
+            android:id="@+id/tvTYpe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            tools:text="Consulta"/>
+
+-->
+
+
+
+
 
     </LinearLayout>
 
