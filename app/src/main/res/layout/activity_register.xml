@@ -38,6 +38,7 @@
             android:text="@string/label_name_lastname"/>
 
         <EditText
+            android:id="@+id/etRegisterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"/>
@@ -50,6 +51,7 @@
             android:text="@string/label_email"/>
 
         <EditText
+            android:id="@+id/etRegisterEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
@@ -63,6 +65,7 @@
             android:text="@string/label_dni"/>
 
         <EditText
+            android:id="@+id/etRegisterDni"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"/>
@@ -76,6 +79,7 @@
             android:text="@string/label_password"/>
 
         <EditText
+            android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
@@ -88,12 +92,13 @@
             android:text="@string/label_confirm_password"/>
 
         <EditText
+            android:id="@+id/etRegisterPasswordConfirmation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnConfirmRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

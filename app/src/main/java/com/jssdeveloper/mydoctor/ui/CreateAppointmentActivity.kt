@@ -15,13 +15,18 @@ import android.widget.RadioButton
 import android.widget.Toast
 import com.jssdeveloper.mydoctor.R
 import com.jssdeveloper.mydoctor.io.ApiService
+import com.jssdeveloper.mydoctor.io.response.SimpleResponse
 import com.jssdeveloper.mydoctor.model.Doctor
 import com.jssdeveloper.mydoctor.model.Schedule
 import com.jssdeveloper.mydoctor.model.Specialty
+import com.jssdeveloper.mydoctor.util.PreferenceHelper
+import com.jssdeveloper.mydoctor.util.PreferenceHelper.get
+import com.jssdeveloper.mydoctor.util.toast
 import kotlinx.android.synthetic.main.activity_create_appointment.*
 import kotlinx.android.synthetic.main.card_view_step_one.*
 import kotlinx.android.synthetic.main.card_view_step_three.*
 import kotlinx.android.synthetic.main.card_view_step_two.*
+import kotlinx.android.synthetic.main.item_appointment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +38,9 @@ class CreateAppointmentActivity : AppCompatActivity() {
 
     private val apiService: ApiService by lazy {
         ApiService.create()
+    }
+    private val preferences by lazy {
+        PreferenceHelper.defaultPrefs(this);
     }
 
     private val selectedCalendar = Calendar.getInstance();
@@ -77,21 +85,69 @@ class CreateAppointmentActivity : AppCompatActivity() {
         }
 
         btnConfirmAppointment.setOnClickListener{
-            Toast.makeText(this, "Cita registrada correctamente", Toast.LENGTH_SHORT).show();
-            finish();
+            /**
+             * LLEGUE AQUI SIN PROBLEMAS...
+             */
+            performStoreAppointment()
         }
-
-
-
         loadSpecialties()
         listenSpecialtyChanges()
-
         listenDoctorAndDateChange()
-
     }
 
-    private fun listenDoctorAndDateChange()
+    private fun performStoreAppointment()
     {
+        btnConfirmAppointment.isClickable = false;
+        //toast("EJECUCION DE FUNCION TAMBIEN PUES FUNCIONA")
+
+        val jwt = preferences["jwt", ""];
+        val authHeader = "Bearer $jwt";
+        // FUNCIONA! toast("JSON WEB TOKEN: $authHeader");
+        val description = tvConfirmDescription.text.toString();
+        // AQUI TAMBIEN FUNCIONA toast("descripcion: $description")
+
+        val specialty = spinnerSpecialties.selectedItem as Specialty;
+        //toast("especialidad: $specialty")
+        val doctor = spinnerDoctors.selectedItem as Doctor;
+        // toast("doctor ${doctor.id}")
+
+        val date = tvConfirmDate.text.toString();
+        //toast("schedule $scheduleDate")
+
+        val time = tvConfirmTime.text.toString();
+        // AQUI ESTA EL PROBLEMA
+
+        val type = rdConfirmType.text.toString();
+
+
+        val call = apiService.storeAppointments(authHeader, description, specialty.id, doctor.id, date, time, type);
+
+        call.enqueue(object: Callback<SimpleResponse> {
+            override fun onResponse(
+                call: Call<SimpleResponse>,
+                response: Response<SimpleResponse>
+            ) {
+                if(response.isSuccessful)
+                {
+                    toast("Cita creada correctamente");
+
+                }else{
+                    toast("Ha ocurrido un error interno");
+                    btnConfirmAppointment.isClickable = true;
+                }
+            }
+
+            override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                toast(t.localizedMessage);
+                btnConfirmAppointment.isClickable = true;
+            }
+
+        })
+        toast("Cita registrada")
+        finish();
+    }
+    private fun listenDoctorAndDateChange()
+     {
         spinnerDoctors.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 
             override fun onNothingSelected(p0: AdapterView<*>?) {

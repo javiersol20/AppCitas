@@ -1,5 +1,8 @@
 package com.jssdeveloper.mydoctor.ui
 
+import android.support.transition.AutoTransition
+import android.support.transition.Transition
+import android.support.transition.TransitionManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +34,7 @@ class AppointmentAdapter : RecyclerView.Adapter<AppointmentAdapter.ViewHolder>()
                 tvCreatedAt.text = context.getString(R.string.label_created_at, appointment.createdAt)
 
                 ibExpand.setOnClickListener{
+                    TransitionManager.beginDelayedTransition(parent as ViewGroup, AutoTransition())
                     if(linearLayoutDetails.visibility == View.VISIBLE)
                     {
                         linearLayoutDetails.visibility = View.GONE

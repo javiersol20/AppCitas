@@ -1,6 +1,7 @@
 package com.jssdeveloper.mydoctor.io
 
 import com.jssdeveloper.mydoctor.io.response.LoginResponse
+import com.jssdeveloper.mydoctor.io.response.SimpleResponse
 import com.jssdeveloper.mydoctor.model.Appointment
 import com.jssdeveloper.mydoctor.model.Doctor
 import com.jssdeveloper.mydoctor.model.Schedule
@@ -32,6 +33,27 @@ interface ApiService {
     @GET("appointments")
     fun getAppointments(@Header("Authorization") authHeader: String): Call<ArrayList<Appointment>>
 
+    @POST("appointments")
+    @Headers("Accept: application/json")
+    fun storeAppointments(
+        @Header("Authorization") authHeader: String,
+        @Query("description") description: String,
+        @Query("specialty_id") specialtyId: Int,
+        @Query("doctor_id") doctorId: Int,
+        @Query("date") date: String,
+        @Query("interval") interval: String,
+        @Query("type") type: String
+    ): Call<SimpleResponse>
+
+    @POST("register")
+    @Headers("Accept: application/json")
+    fun postRegister(
+        @Query("name") name: String,
+        @Query("email") email : String,
+        @Query("dni") dni: String,
+        @Query("password") password: String,
+        @Query("password_confirmation") password_confirmation: String
+    ): Call<LoginResponse>
     companion object Factory{
         private const val BASE_URL = "http://128.199.8.30/api/"
 

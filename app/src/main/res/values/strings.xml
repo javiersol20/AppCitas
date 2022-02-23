@@ -63,5 +63,6 @@
     <string name="error_entry_credentials">Por favor ingrese un correo y password</string>
 
     <string name="label_created_at">Esta cita se genero el dia %1$s con la siguiente descripcion: </string>
+    <string name="default_notification_channel_id">defualt_chanel</string>
 
 </resources>
